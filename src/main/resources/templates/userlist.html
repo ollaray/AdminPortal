@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/fragments :: header" />
+<style>
+	.littleMargin {
+		margin-top: 5px;
+	}
+</style>
+
+<body>
+
+	<!--<div class="colorlib-loader"></div>-->
+
+	<div id="page">
+		<!--nav Component-->
+		<div th:replace="commons/fragments :: nav" />
+		<!--Content Begin-->
+		<div class="container">
+		
+				<div class="card col-md-12 mx-auto littleMargin">
+					<div class="card-header">
+						<h5>Manage Users</h5>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">User List</h5>
+						<hr />
+						<div class="table-responsive">
+							<table class="table table-striped table-hover table-bordered table-sm " id="shoeListTable">
+								<thead>
+									<tr>
+										<!--<th scope="col">#</th>-->
+										
+										<th scope="col">Username</th>
+										<th scope="col">Email</th>
+										<th scope="col">Firstname</th>
+										<th scope="col">Lastname</th>
+										<!--<th scope="col">Role</th>-->
+										
+										<th scope="col">Operation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-th-each="user: ${userList}">
+										<input type="hidden" name="id"  th:value="${user.id}" />
+										
+										<td th:text="${user.username}"></td>
+										<td th:text="${user.email}"></td>
+										<td th:text="${user.firstname}"></td>
+										<td th:text="${user.lastname}"></td>
+										<!--<td th:text="${user.role}"></td>-->
+										
+										<td>
+										<a href="#" class="btn btn-warning" rel="button" >Edit</a>
+										<a href="#" class="btn btn-danger" onclick="return confirm('Are you sure?')" rel="button" >Delete</a>
+											
+											<!--<a th:href="@{/shoe/edit/{id}(id=${shoe.id})}" class="btn btn-warning" rel="button" >Edit</a>
+											<a th:href="@{/shoe/delete/{id}(id=${shoe.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')" rel="button" >Delete</a>-->
+											 
+										</td>
+										
+									</tr>
+									
+								</tbody>
+
+								<caption>
+									List of Users
+								</caption>
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--End Content-->
+
+		<!--Footer Component-->
+		<div th:replace="commons/fragments :: footer" />
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+	</div>
+
+	<!---Script-->
+	<div th:replace="commons/fragments :: scripts" />
+	<script>
+		// Disable form submissions if there are invalid fields
+		(function () {
+			'use strict';
+			window.addEventListener('load', function () {
+				// Get the forms we want to add validation styles to
+				var forms = document.getElementsByClassName('needs-validation');
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+	</script>
+</body>
+
+</html>

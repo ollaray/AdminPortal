@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/fragments :: header" />
+<style>
+	.littleMargin {
+		margin-top: 5px;
+	}
+</style>
+
+<body>
+
+	<!--<div class="colorlib-loader"></div>-->
+
+	<div id="page">
+		<!--nav Component-->
+		<div th:replace="commons/fragments :: nav" />
+		<!--Content Begin-->
+		<div class="container">
+			<div class="row">
+				<div class="card col-md-10 mx-auto littleMargin">
+					<div class="card-header">
+						<h5>ADD SHOE</h5>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">Input Shoe details</h5>
+						<hr />
+						<form th:action="@{/shoe/add}" class="form-horizontal needs-validation"
+							th:object="${productForm}" method="POST" novalidate enctype="multipart/form-data">
+							<input type="hidden" name="id" th:value="${productForm.id}" />
+							<div class="alert alert-info" th:if="${shoeProductInfo}">Shoe info updated</div>
+							<div class="form-group">
+								<div class="row">
+									<label for="title">* Title/Brand/Label</label>
+									<input type="text" class="form-control" name="title" id="title" th:field="*{title}"
+										required />
+									<span class="has-error" th:if="${#fields.hasErrors('title')}"  th:errors="*{title}"></span>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="description">* Description</label>
+										<textarea class="form-control" name="description"  id="description"
+											th:field="*{description}" row="5"  ></textarea>
+											<span class="has-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="color">* Color</label>
+										<input type="text" class="form-control" name="color"  id="color"
+											th:field="*{color}" required />
+										<span class="has-error" th:if="${#fields.hasErrors('color')}"  th:errors="*{color}"></span>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<label for="size">*  Size</label>
+										<input type="number" class="form-control" name="size"  id="size"
+											th:field="*{size}" required />
+										<span class="has-error" th:if="${#fields.hasErrors('size')}"  th:errors="*{size}"></span>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="category">* Category</label>
+										<select class="form-control" id="category" name="category" th:value="${productForm.category}" th:field="*{category}" >
+												<option value="" selected disabled="disabled">Select Category</option>
+												<option value="Men" th:selected=(${productForm.category}=='Men')>Men</option>
+												<option value="Women" th:selected=(${productForm.category}=='Women')>Women</option>
+										</select>
+										<span class="has-error" th:if="${#fields.hasErrors('category')}"  th:errors="*{category}"></span>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="sku">SKU</label>
+										<input type="text" class="form-control" name="sku" id="sku" th:field="*{sku}"
+											required />
+										<span class="has-error" th:if="${#fields.hasErrors('sku')}"  th:errors="*{sku}"></span>
+											<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="shippingWeight">* Shipping Weight</label>
+										<div class="input-group">
+											<input type="number" class="form-control" name="shippingWeight" id="shippingWeight" th:field="*{shippingWeight}"
+												required />
+											<div class="input-group-prepend">
+		          								<span class="input-group-text" id="inputGroupPrepend2">KG</span>
+		       		 						</div>
+										
+										</div>
+										<span class="has-error" th:if="${#fields.hasErrors('shippingWeight')}"  th:errors="*{shippingWeight}"></span>
+											<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="listPrice">* List Price</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+		          								<span class="input-group-text" id="listPrice">$</span>
+		       		 						</div>
+											<input type="number" class="form-control" name="listPrice" id="listPrice" th:field="*{listPrice}"
+												required />
+										
+										</div>
+										<span class="has-error" th:if="${#fields.hasErrors('listPrice')}"  th:errors="*{listPrice}"></span>
+											<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="ourPrice">* Our Price</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+		          								<span class="input-group-text" id="ourPrice">$</span>
+		       		 						</div>
+											<input type="number" class="form-control" name="ourPrice" id="ourPrice" th:field="*{ourPrice}"
+												required />
+										
+										</div>
+										<span class="has-error" th:if="${#fields.hasErrors('ourPrice')}"  th:errors="*{ourPrice}"></span>
+											<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label for="inStockNumber">* Number in Stock</label>
+					
+											<input type="number" class="form-control" name="inStockNumber" id="inStockNumber" th:field="*{inStockNumber}"
+												required />
+										<span class="has-error" th:if="${#fields.hasErrors('inStockNumber')}"  th:errors="*{inStockNumber}"></span>
+											<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="active" th:field="*{active}" id="active" value="true" checked>
+											<label class="form-check-label" for="active">
+												Active
+											</label>
+										</div>&nbsp;&nbsp;
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="active" id="inactive" value="false" th:field="*{active}">
+											<label class="form-check-label" for="inactive">
+												Inactive
+											</label>
+										</div>
+												
+										<span class="has-error" th:if="${#fields.hasErrors('active')}"  th:errors="*{active}"></span>
+											<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="shoeImage" name="shoeImage" th:field="*{shoeImage}">
+											<label class="custom-file-label" for="shoeImage">Choose Image</label>
+										</div>
+									</div>
+									<span class="has-error" th:if="${#fields.hasErrors('shoeImage')}"  th:errors="*{shoeImage}"></span>
+									<div class="invalid-feedback">Please fill out this field.</div>
+								</div>
+								<button type="submit" class="btn btn-success ">Add Shoe</button>
+							</div>
+							
+								 
+    
+							</form>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<!--End Content-->
+		
+		<!--Footer Component-->
+		<div th:replace="commons/fragments :: footer" />
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+	</div>
+	
+	<!---Script-->
+	<div th:replace="commons/fragments :: scripts" />
+	<script>
+		// Disable form submissions if there are invalid fields
+		(function () {
+			'use strict';
+			window.addEventListener('load', function () {
+				// Get the forms we want to add validation styles to
+				var forms = document.getElementsByClassName('needs-validation');
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+	</script>
+	</body>
+</html>
